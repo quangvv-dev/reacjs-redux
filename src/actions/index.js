@@ -1,4 +1,4 @@
-import  {LIST_ALL,ADD_LIST,DELETE_LIST} from '../constants/actionType' // lấy actionType
+import  {LIST_ALL,ADD_LIST,DELETE_LIST,EDIT_LIST, UPDATE} from '../constants/actionType' // lấy actionType
 
 //action hien thi
 export const listAll = () =>{
@@ -19,7 +19,20 @@ export const listAdd = (itemName) =>{
 export const Delete_List = (id) =>{
     return{
         type: DELETE_LIST,
+        id
         
 
     }
+}
+export const Edit_List = (item) =>{
+    return {
+        type: EDIT_LIST,
+        item
+      }
+}
+export const Update = (changeUser) =>{
+    return {
+        type: UPDATE,
+        changeUser
+      }
 }

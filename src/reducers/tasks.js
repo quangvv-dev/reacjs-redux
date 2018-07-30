@@ -1,4 +1,4 @@
-import  {LIST_ALL,ADD_LIST} from '../constants/actionType' //khao bao action type
+import  {LIST_ALL,ADD_LIST,DELETE_LIST,EDIT_LIST, UPDATE} from '../constants/actionType' //khao bao action type
 
 //khai báo initialState của store
 var initialState    =   {
@@ -6,12 +6,11 @@ var initialState    =   {
         { id:1, name:'quang',age:23},
         { id:2,name:'hoa',age:18}
 
-    ]
+    ],
+    inf:{}
 }
-
-
 //set xử lý action
-var myReducer   =(state =initialState,action) =>{
+var myReducer   =(state = initialState, action) => {
 switch (action.type)
     {
 // xu lý action hiển thi
@@ -22,21 +21,33 @@ switch (action.type)
         case ADD_LIST:
         return{
             ...state,
-            info: state.info.concat({id:state.info.length+1,
-                 name:action.itemName.name,
-                 age:action.itemName.age})
+            info: state.info.concat({id: state.info.length+1,
+                 name: action.itemName.name,
+                 age: action.itemName.age})
         }
-        // var newinfo=    {
-        //     id:state.length + 1 ,
-        //      name:action.itemName.name,
-        //      age:action.itemName.age
-        //     }
+        
+        case DELETE_LIST:{
+            console.log(action);
+            return {...state, info:state.info.filter(item => item.id !== action.id)}
+        }
 
-        // state.push(newinfo);
-        // console.log(action );
-        // return [...state];
+        case EDIT_LIST:
+        console.log(action.item)
+        return {...state,inf:action.item}
+
+        case UPDATE:
+        return { ...state,info: state.info.map(item =>{
+            if(item.id === action.changeUser.id){
+                item = action.changeUser;
+            }
+            return item;
+        })}
+            
+
+      
         default: return state
     }
+    
 
 
     
