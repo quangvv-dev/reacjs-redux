@@ -38,7 +38,7 @@ class Formlist extends Component {
         this.props.onUpdateItem(item);
         console.log(item)
     }
-    
+// ham map du lieu
  _renderTable(){
      if(this.props.tasks){
         return this.props.tasks.map((item,i)=>{
@@ -56,6 +56,7 @@ class Formlist extends Component {
      }
     return null;
  }
+ // event đẩy dữ liệu lên object inf
  handleUpdate = (event) => {
     event.preventDefault();
     const changeUser = {
@@ -112,6 +113,7 @@ class Formlist extends Component {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-lg-9">
+                            {/* table display  */}
                                 <div className="table-responsive table--no-card m-b-30">
                                     <table className="table table-borderless table-striped table-earning">
                                         <thead>
@@ -140,6 +142,7 @@ class Formlist extends Component {
                                     </form>
                                                             
                                 </div>
+                                {/* end table display  */}
                             </div>
                         </div>
                         <div className="row">

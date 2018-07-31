@@ -17,7 +17,7 @@ switch (action.type)
         case LIST_ALL:
         return state
 
-//xử lý action AddItem
+//xử lý action AddItem 
         case ADD_LIST:
         return{
             ...state,
@@ -25,16 +25,16 @@ switch (action.type)
                  name: action.itemName.name,
                  age: action.itemName.age})
         }
-        
+// xử lý action deleteItem      
         case DELETE_LIST:{
             console.log(action);
             return {...state, info:state.info.filter(item => item.id !== action.id)}
         }
-
+//xử lý action đẩy data vào onbject inf
         case EDIT_LIST:
         console.log(action.item)
         return {...state,inf:action.item}
-
+//xử lý action đẩy data vào array info trên store
         case UPDATE:
         return { ...state,info: state.info.map(item =>{
             if(item.id === action.changeUser.id){

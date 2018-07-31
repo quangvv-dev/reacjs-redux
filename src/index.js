@@ -7,7 +7,7 @@ import {createStore} from 'redux';
 import rootReducer from './reducers'
 import {Provider} from 'react-redux';
 
-//store
+//khởi tạo store
 const store     =createStore (rootReducer);
 
 ReactDOM.render(

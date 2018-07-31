@@ -24,12 +24,15 @@ export const Delete_List = (id) =>{
 
     }
 }
+//action lấy dữ liệu từ object inf xuống input modal
 export const Edit_List = (item) =>{
     return {
         type: EDIT_LIST,
         item
       }
 }
+
+//action UpdateItem
 export const Update = (changeUser) =>{
     return {
         type: UPDATE,
