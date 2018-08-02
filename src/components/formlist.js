@@ -14,26 +14,30 @@ class Formlist extends Component {
             age:'',
         }
     }
+    componentWillReceiveProps(nextProps,item) {
+        if (this.props.inf!== nextProps.inf) this.setState({ ...nextProps.inf });
+      }
 // target gia tri input
     handleChange = (e) =>
     {
-        var target = e.target;
-        var name = target.name;
-        var value = target.type === "checkbox" ? target.checked : target.value;
+        var target  = e.target;
+        var name    = target.name;
+        var value   = target.type === "checkbox" ? target.checked : target.value;
+
         this.setState({
           [name]: value
         });
     }
 
-    onSubmit =(e)=>{
+    onSubmit =(e) =>{
         e.preventDefault();
         this.props.onAddItem(this.state)
-        
-        // console.log('this.state');
     }
+//event Delete
     onDelete = id => e => {
         this.props.onDeleteItem(id);
                         }
+
     onEdit=item=>e=>{
         this.props.onUpdateItem(item);
         console.log(item)
@@ -41,15 +45,15 @@ class Formlist extends Component {
 // ham map du lieu
  _renderTable(){
      if(this.props.tasks){
-        return this.props.tasks.map((item,i)=>{
+       return this.props.tasks.map((item,i)=>{
             return(
             <tr key={i}>
                 <td >{item.id}</td> 
                 <td>{item.name}</td> 
                 <td>{item.age}</td>
                 <td>
-                    <button type="submit" className="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" onClick={this.onEdit(item)} >Edit</button>
-                    <button type="submit" className="btn btn-danger btn-sm" onClick={this.onDelete(item.id)} >Delete</button>
+                    <button type ="submit" className="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal" onClick={this.onEdit(item)} >Edit</button>
+                    <button type ="submit" className="btn btn-danger btn-sm" onClick={this.onDelete(item.id)} >Delete</button>
                 </td>
             </tr>)
             })
@@ -58,23 +62,12 @@ class Formlist extends Component {
  }
  // event đẩy dữ liệu lên object inf
  handleUpdate = (event) => {
-    event.preventDefault();
-    const changeUser = {
-      id: this.props.inf.id,
-      name: this.refs.name.value,
-      age: this.refs.age.value,
-      
-    }
+    const changeUser = this.state ;
     this.props.Update(changeUser);
     console.log(changeUser)
   }
 
   render() {
-      
-    //   var {tasks}=this.props; // const tasks = this.props.tasks; props cua redux
-    // console.log(this.props.tasks);
-
-// console.log(this.state.info)
     return (
       <div className="list">
        <div className="modal" id="myModal">
@@ -91,9 +84,9 @@ class Formlist extends Component {
         <div className="modal-body">
          <div className="form-group">
           <label >Name:</label>
-          <input type="text" className="form-control" name="name" ref="name" defaultValue={this.props.inf.name} />
+          <input type="text" className="form-control" name="name"  value={this.state.name} onChange={this.handleChange} />
           <label >Age:</label>
-          <input type="text" className="form-control" name="age" ref="age"  defaultValue={this.props.inf.age} />
+          <input type="text" className="form-control" name="age"   value={this.state.age} onChange={this.handleChange} />
         </div>
         </div>
         
@@ -128,7 +121,7 @@ class Formlist extends Component {
                                         {this._renderTable()}
                                         </tbody>
                                     </table>
-
+                                    <br/>
                                     <form >
 
                                     <label >Name:</label>
@@ -169,18 +162,17 @@ const mapStatetoProps = (state) => {
     return {
         
         tasks: state.tasks.info,
-        inf:state.tasks.inf
+        inf:state.tasks.inf,
         
     }
-    // console.log(tasks)
 }
-// dispatch du lieu len store
+
 const mapDispatchtoProps =(dispatch,props)=>{
     return {
         onAddItem:      (itemName) => dispatch(listAdd(itemName)),
-        onDeleteItem: (id) => dispatch(Delete_List(id)),
-        onUpdateItem: (item) => dispatch(Edit_List(item)),
-        Update: (item) => dispatch(Update(item))
+        onDeleteItem:   (id)       => dispatch(Delete_List(id)),
+        onUpdateItem:   (item)     => dispatch(Edit_List(item)),
+        Update:         (item)     => dispatch(Update(item))
       }
     }
 
